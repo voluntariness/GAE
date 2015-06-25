@@ -1,0 +1,28 @@
+application: jcluo-demo
+version: 1
+runtime: php55
+api_version: 1
+threadsafe: yes
+
+handlers:
+- url: /favicon\.ico
+  static_files: favicon.ico
+  upload: favicon\.ico
+
+# 設定 res 的 js, css route
+- url: /res/(.*\.(js|css|gif|jpg|jpeg|png))$
+  static_files: res/\1
+  upload: res/.*\.(js|css|gif|jpg|jpeg|png)$
+
+# 首頁
+- url: /
+  script: main.php
+
+# sheet query 首頁
+- url: /sheet-query
+  script: sheet-query/index.php
+- url: /sheet-query/service
+  script: sheet-query/service.php
+- url: /sheet-query/js/(.*\.(js))$
+  static_files: sheet-query/js/\1
+  upload: sheet-query/js/.*\.(js)$

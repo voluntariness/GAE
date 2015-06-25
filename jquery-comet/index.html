@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://code.jquery.com/jquery.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <meta charset="utf-8">
+    <title>JQuery ajax</title>
+</head>
+<body>
+
+    <div>
+        <button id="run" class="btn btn-default">Run</button>
+    </div>
+    <pre></pre>
+
+    <script>   
+        $('#run').bind('click', runAjax);
+
+        function runAjax() {
+            var $btn = $(this);
+            var url = '/jquery-comet/ajax';
+            var strlen = 0;
+            $.ajax(url, 
+            {
+                dataType: 'html', 
+                type: 'get',
+                xhrFields: {
+                    onprogress: function(event) {
+                        var msg = event.currentTarget.response.substr(strlen);
+                        strlen += msg.length ;
+                        $btn.html('執行 : ' + msg);
+                    }
+                }
+            })
+            .done(function(response) {
+                // alert(response);
+            });
+        } 
+    </script>
+
+</body>
+</html>
